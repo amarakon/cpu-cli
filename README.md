@@ -1,4 +1,4 @@
-# CPU-cli – Dmenu Emerge
+# CPU-cli
 
 CPU-cli is a simple command-line utility to manage CPU settings.
 The usage is very simple:
