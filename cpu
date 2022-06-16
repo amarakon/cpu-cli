@@ -3,7 +3,9 @@
 main() {
     parse_opts "$@"
 
-    if [ -n "$governor" ]; then
+    if [ -n "$help" ]; then
+	help
+    elif [ -n "$governor" ]; then
 	cpu_set_governor "$2"
     elif [ -n "$minfreq" ]; then
 	cpu_set_minimum_frequency "$2"
@@ -18,10 +20,24 @@ cpu_set_maximum_frequency() { for c in $(ls -d /sys/devices/system/cpu/cpu[0-9]*
 
 cpu_set_minimum_frequency() { for c in $(ls -d /sys/devices/system/cpu/cpu[0-9]*); do echo "$@" >$c/cpufreq/scaling_min_freq; done }
 
+help() {
+    printf "Usage:	cpu [option]
+
+Options:
+-g|--governor │ Set the CPU governor
+-l|--minfreq  │ Set the CPU minimum frequency
+-h|--maxfreq  │ Set the cPU maximum frequency
+\n"
+}
+
 parse_opts() {
     while [ $# -gt 0 ]; do
         key="$1"
         case $key in
+	-h|--help)
+	    help=1
+	    shift
+	    ;;
         -g|--governor)
             governor=1
             shift
