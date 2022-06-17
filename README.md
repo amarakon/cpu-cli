@@ -6,6 +6,8 @@ The usage is very simple:
 * `# cpu --minfreq <minfreq>` or `# cpu -l <minfreq>` – set the CPU minimum frequency
 * `# cpu --maxfreq <maxfreq>` or `# cpu -h <maxfreq>` – set the CPU maximum frequency
 
+The `cpupower` package on most distributions is better if you don't mind using a larger program.
+
 ## (Un)Installation
 ### Universal
 #### Installation
