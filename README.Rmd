@@ -1,58 +1,49 @@
-CPU-cli
-================
+---
+title: CPU-cli
+output: amaryaml::github
+---
 
-## Contents
+CPU-cli is a simple command-line utility to manage CPU settings.
+The `cpupower` package on most distributions is better if you don't mind using a larger program.
 
--   [Usage](#usage)
--   [Installation](#installation)
-    -   [Universal](#universal)
-    -   [Gentoo](#gentoo)
--   [Uninstallation](#uninstallation)
-    -   [Universal](#universal-1)
-    -   [Gentoo](#gentoo-1)
+# Usage
 
-CPU-cli is a simple command-line utility to manage CPU settings. The
-`cpupower` package on most distributions is better if you don’t mind
-using a larger program.
-
-## Usage
-
-``` sh
+```sh
 `# root` cpu --governor <governor> # set the CPU governor
 `# root` cpu --minfreq <minfreq> # set the CPU minimum frequency
 `# root` cpu --maxfreq <maxfreq> # set the CPU maximum frequency
 ```
 
-## Installation
+# Installation
 
-### Universal
+## Universal
 
-``` sh
+```sh
 `# user` git clone https://github.com/amarakon/cpu-cli
 `# user` cd cpu-cli
 `# root` make install
 ```
 
-### Gentoo
+## Gentoo
 
-``` sh
+```sh
 `# root` eselect repository add amarlay git https://github.com/amarakon/amarlay
 `# root` emerge --sync amarlay
 `# root` emerge sys-apps/cpu-cli
 ```
 
-## Uninstallation
+# Uninstallation
 
-### Universal
+## Universal
 
-``` sh
+```sh
 `# user` cd cpu-cli
 `# root` make uninstall
 ```
 
-### Gentoo
+## Gentoo
 
-``` sh
+```sh
 `# root` emerge -c sys-apps/cpu-cli
 # Remove my overlay (optional)
 `# root` eselect-repository remove -f amarlay
