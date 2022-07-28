@@ -14,21 +14,19 @@ main() {
     fi
 }
 
-cpu_set_governor() { for c in $(ls -d /sys/devices/system/cpu/cpu[0-9]*); do echo "$@" >$c/cpufreq/scaling_governor; done }
+cpu_set_governor() { for c in $(ls -d /sys/devices/system/cpu/cpu[0-9]*); do printf "$@" >$c/cpufreq/scaling_governor; done }
 
-cpu_set_maximum_frequency() { for c in $(ls -d /sys/devices/system/cpu/cpu[0-9]*); do echo "$@" >$c/cpufreq/scaling_max_freq; done }
+cpu_set_maximum_frequency() { for c in $(ls -d /sys/devices/system/cpu/cpu[0-9]*); do printf "$@" >$c/cpufreq/scaling_max_freq; done }
 
-cpu_set_minimum_frequency() { for c in $(ls -d /sys/devices/system/cpu/cpu[0-9]*); do echo "$@" >$c/cpufreq/scaling_min_freq; done }
+cpu_set_minimum_frequency() { for c in $(ls -d /sys/devices/system/cpu/cpu[0-9]*); do printf "$@" >$c/cpufreq/scaling_min_freq; done }
 
-help() {
-    printf "Usage:	cpu [option]
+help() { printf "Usage:	cpu [option] [argument]
 
 Options:
 -g|--governor │ Set the CPU governor
 -l|--minfreq  │ Set the CPU minimum frequency
 -h|--maxfreq  │ Set the cPU maximum frequency
-\n"
-}
+"; }
 
 parse_opts() {
     while [ $# -gt 0 ]; do
