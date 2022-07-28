@@ -1,23 +1,14 @@
 #!/bin/sh
 
-main() {
-    parse_opts "$@"
-
-    if [ -n "$help" ]; then
-	help
-    elif [ -n "$governor" ]; then
-	cpu_set_governor "$2"
-    elif [ -n "$minfreq" ]; then
-	cpu_set_minimum_frequency "$2"
-    elif [ -n "$maxfreq" ]; then
-	cpu_set_maximum_frequency "$2"
-    fi
+main() { parse_opts "$@"
+    if [ -n "$governor" ]; then cpu_set_governor "$2"
+    elif [ -n "$minfreq" ]; then cpu_set_minimum_frequency "$2"
+    elif [ -n "$maxfreq" ]; then cpu_set_maximum_frequency "$2"
+    else help ; exit 1; fi
 }
 
 cpu_set_governor() { for c in $(ls -d /sys/devices/system/cpu/cpu[0-9]*); do printf "$@" >$c/cpufreq/scaling_governor; done }
-
 cpu_set_maximum_frequency() { for c in $(ls -d /sys/devices/system/cpu/cpu[0-9]*); do printf "$@" >$c/cpufreq/scaling_max_freq; done }
-
 cpu_set_minimum_frequency() { for c in $(ls -d /sys/devices/system/cpu/cpu[0-9]*); do printf "$@" >$c/cpufreq/scaling_min_freq; done }
 
 help() { printf "Usage:	cpu [option] [argument]
@@ -30,27 +21,12 @@ Options:
 
 parse_opts() {
     while [ $# -gt 0 ]; do
-        key="$1"
-        case $key in
-	-h|--help)
-	    help=1
-	    shift
-	    ;;
-        -g|--governor)
-            governor=1
-            shift
-            ;;
-        -l|--minfreq)
-            minfreq=1
-            shift
-            ;;
-        -h|--maxfreq)
-            maxfreq=1
-            shift
-            ;;
-        *)
-            shift
-            ;;
+        case "$1" in
+	-h|--help)	help ; exit 0 ;;
+        -g|--governor)	governor=1 ; shift ;;
+        -l|--minfreq)	minfreq=1 ; shift ;;
+        -h|--maxfreq)	maxfreq=1 ; shift ;;
+        *)		shift ;;
         esac
     done
 }
